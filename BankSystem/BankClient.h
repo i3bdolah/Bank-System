@@ -19,12 +19,75 @@ private:
 	string _PinCode;
 	double _AccountBalance;
 
-	static BankClient _ConvertLineToObject(string Line, string Separator = "#//#") {
+	static BankClient _ConvertLineToClientObject(string Line, string Separator = "#//#") {
 		vector <string> vClientData;
 		vClientData = String::Split(Line, Separator);
 
 		return BankClient(enMode::UpdateMode, vClientData[0], vClientData[1], vClientData[2], vClientData[3], vClientData[4], vClientData[5], stod(vClientData[6]));
 	};
+
+	static vector <BankClient> _LoadClientsDataFromFile() {
+		vector <BankClient> _vClients;
+		fstream MyFile;
+		MyFile.open(File, ios::in); // Reading Mode
+
+		if (MyFile.is_open())
+		{
+			string Line;
+			while (getline(MyFile, Line)) // Line By Line
+			{
+				BankClient CurrClient = _ConvertLineToClientObject(Line);
+				_vClients.push_back(CurrClient);
+			}
+			MyFile.close();
+		}
+		return _vClients;
+	}
+
+	static string _ConvertClientObjectToLine(BankClient Client, string Separator = "#//#") {
+		string Line = "";
+
+		Line += Client.FirstName + Separator;
+		Line += Client.LastName + Separator;
+		Line += Client.Email + Separator;
+		Line += Client.Phone + Separator;
+		Line += Client.AccountNumber() + Separator;
+		Line += Client.PinCode + Separator;
+		Line += to_string(Client.AccountBalance);
+
+		return Line;
+	}
+
+	static void _SaveClientsDataToFile(vector <BankClient> vClients) {
+		fstream MyFile;
+		MyFile.open(File, ios::out); // Overwrite Mode
+
+		string Line;
+		if (MyFile.is_open())
+		{
+			for (BankClient& C : vClients)
+			{
+				Line = _ConvertClientObjectToLine(C);
+				MyFile << Line << endl;
+			}
+			MyFile.close();
+		}
+	}
+
+
+	void _Update() {
+		vector <BankClient> _vClients = _LoadClientsDataFromFile();
+
+		for (BankClient& C : _vClients)
+		{
+			if (C.AccountNumber() == AccountNumber())
+			{
+				C = *this;
+				break;
+			}
+		}
+		_SaveClientsDataToFile(_vClients);
+	}
 
 	static BankClient _GetEmptyClientObject() {
 		return BankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
@@ -81,7 +144,7 @@ public:
 			string Line;
 			while (getline(MyFile, Line)) // Line By Line
 			{
-				BankClient CurrClient = _ConvertLineToObject(Line);
+				BankClient CurrClient = _ConvertLineToClientObject(Line);
 				if (CurrClient.AccountNumber() == AccountNumber)
 				{
 					MyFile.close();
@@ -102,7 +165,7 @@ public:
 			string Line;
 			while (getline(MyFile, Line)) // Line By Line
 			{
-				BankClient CurrClient = _ConvertLineToObject(Line);
+				BankClient CurrClient = _ConvertLineToClientObject(Line);
 				if (CurrClient.AccountNumber() == AccountNumber
 					&& CurrClient.PinCode == PinCode)
 				{
@@ -113,6 +176,19 @@ public:
 			MyFile.close();
 		}
 		return _GetEmptyClientObject();
+	}
+
+	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1 };
+
+	enSaveResults Save() {
+		switch (_Mode)
+		{
+		case BankClient::EmptyMode:
+			return enSaveResults::svFaildEmptyObject;
+		case BankClient::UpdateMode:
+			_Update();
+			return enSaveResults::svSucceeded;
+		}
 	}
 
 	static bool IsClientExist(string AccountNumber)
