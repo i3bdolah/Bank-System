@@ -264,4 +264,15 @@ public:
 	static vector <BankClient> GetClientsList() {
 		return _LoadClientsObjectFromFile();
 	}
+
+	static double GetTotalBalances() {
+		vector <BankClient> vClients = _LoadClientsObjectFromFile();
+		double Total = 0.0;
+
+		for (BankClient& C : vClients)
+		{
+			Total += C.AccountBalance;
+		}
+		return Total;
+	}
 };

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BankClient.h"
 #include "InputValidation.h"
+#include "Utility.h"
 using namespace std;
 
 void ReadClientInfo(BankClient& Client)
@@ -136,7 +137,7 @@ void DeleteClient() {
 
 }
 
-void PrintClientLine(BankClient Client) {
+void PrintShowClientsListLine(BankClient Client) {
 	cout << "| " << left << setw(11) << Client.AccountNumber();
 	cout << "| " << left << setw(20) << Client.FullName();
 	cout << "| " << left << setw(12) << Client.Phone;
@@ -147,15 +148,13 @@ void PrintClientLine(BankClient Client) {
 }
 
 void ShowClientsList() {
-
-	vector <BankClient> vClients = {};
-	//vector <BankClient> vClients = BankClient::GetClientsList();
+	//vector <BankClient> vClients = {};
+	vector <BankClient> vClients = BankClient::GetClientsList();
 
 	cout << "\t\t\t\t";
-	cout << "Client List(" << vClients.size() << ") Client(s).";
+	cout << "Client List (" << vClients.size() << ") Client(s).";
 	cout << "\n________________________________________________";
 	cout << "________________________________________________\n";
-
 	cout << "| " << left << setw(11) << "Acc. Number";
 	cout << "| " << left << setw(20) << "Client Name";
 	cout << "| " << left << setw(12) << "Phone";
@@ -174,11 +173,53 @@ void ShowClientsList() {
 	{
 		for (BankClient& C : vClients)
 		{
-			PrintClientLine(C);
+			PrintShowClientsListLine(C);
 		}
 	}
 	cout << "\n________________________________________________";
 	cout << "________________________________________________\n";
+}
+
+void PrintShowBalancesListLine(BankClient Client) {
+	cout << "| " << left << setw(25) << Client.AccountNumber();
+	cout << "| " << left << setw(40) << Client.FullName();
+	cout << "| " << left << setw(23) << Client.AccountBalance;
+	cout << '\n';
+}
+
+void ShowClientsBalance() {
+	vector <BankClient> vClients = BankClient::GetClientsList();
+	double TotalBalances = BankClient::GetTotalBalances();
+
+
+	cout << "\t\t\t\t";
+	cout << "Client List (" << vClients.size() << ") Client(s).";
+	cout << "\n________________________________________________";
+	cout << "________________________________________________\n";
+	cout << "| " << left << setw(25) << "Acc. Number";
+	cout << "| " << left << setw(40) << "Name";
+	cout << "| " << left << setw(23) << "Balance";
+	cout << "\n________________________________________________";
+	cout << "________________________________________________\n";
+
+	if (vClients.size() == 0)
+	{
+		cout << "\n\t\t\t";
+		cout << "Sorry, No Client Found in The Database.\n";
+	}
+	else
+	{
+		for (BankClient& C : vClients)
+		{
+			PrintShowBalancesListLine(C);
+		}
+	}
+	cout << "\n________________________________________________";
+	cout << "________________________________________________\n";
+	cout << "\n\t\t\t";
+	cout << "Total Balances = " << TotalBalances << endl;
+	cout << "\t\t\t";
+	cout << "( " << Utility::NumberToText((int)TotalBalances) << ")." << endl;
 }
 
 int main()
@@ -186,5 +227,6 @@ int main()
 	//UpdateClient();
 	//AddNewClient();
 	//DeleteClient();
-	ShowClientsList();
+	//ShowClientsList();
+	ShowClientsBalance();
 }
