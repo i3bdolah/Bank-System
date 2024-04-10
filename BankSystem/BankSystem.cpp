@@ -70,7 +70,7 @@ void AddNewClient() {
 	AccountNumber = InputValidation::ReadString();
 	while (BankClient::IsClientExist(AccountNumber))
 	{
-		cout << "\nThe Number Is Already Used ...\n";
+		cout << "\nThe Number Is Already Exist ...\n";
 		cout << "Please Re-Enter Your Account Number : ";
 		AccountNumber = InputValidation::ReadString();
 	}
@@ -102,8 +102,43 @@ void AddNewClient() {
 	}
 }
 
+void DeleteClient() {
+	string AccountNumber = "";
+
+	cout << "\nPlease Enter Account Number : ";
+	AccountNumber = InputValidation::ReadString();
+	while (!BankClient::IsClientExist(AccountNumber))
+	{
+		cout << "\nThe Number Is NOT Exist ...\n";
+		cout << "Please Re-Enter Your Account Number : ";
+		AccountNumber = InputValidation::ReadString();
+	}
+
+	BankClient Client = BankClient::Find(AccountNumber);
+	Client.Print();
+
+	cout << "\nAre you sure, You want to Delete This Client [Y/N] : ";
+	char ConfirmationResponse = 'N';
+	cin >> ConfirmationResponse;
+
+	if (ConfirmationResponse == 'Y' || ConfirmationResponse == 'y')
+	{
+		if (Client.Delete())
+		{
+			cout << "\nClient Deleted Successfully :-)\n";
+			Client.Print(); // Should be empty object
+		}
+		else
+		{
+			cout << "\nClient was NOT Deleted\n";
+		}
+	}
+
+}
+
 int main()
 {
 	//UpdateClient();
-	AddNewClient();
+	//AddNewClient();
+	DeleteClient();
 }

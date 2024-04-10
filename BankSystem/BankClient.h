@@ -18,6 +18,7 @@ private:
 	string _AccountNumber;
 	string _PinCode;
 	double _AccountBalance;
+	bool _MarkedForDelete = false;
 
 	static BankClient _ConvertLineToClientObject(string Line, string Separator = "#//#") {
 		vector <string> vClientData;
@@ -26,7 +27,7 @@ private:
 		return BankClient(enMode::UpdateMode, vClientData[0], vClientData[1], vClientData[2], vClientData[3], vClientData[4], vClientData[5], stod(vClientData[6]));
 	};
 
-	static vector <BankClient> _LoadClientsDataFromFile() {
+	static vector <BankClient> _LoadClientsObjectFromFile() {
 		vector <BankClient> _vClients;
 		fstream MyFile;
 		MyFile.open(File, ios::in); // Reading Mode
@@ -58,7 +59,7 @@ private:
 		return Line;
 	}
 
-	static void _SaveClientsDataToFile(vector <BankClient> vClients) {
+	static void _SaveClientsObjectToFile(vector <BankClient> vClients) {
 		fstream MyFile;
 		MyFile.open(File, ios::out); // Overwrite Mode
 
@@ -67,8 +68,11 @@ private:
 		{
 			for (BankClient& C : vClients)
 			{
-				Line = _ConvertClientObjectToLine(C);
-				MyFile << Line << endl;
+				if (C._MarkedForDelete == false)
+				{
+					Line = _ConvertClientObjectToLine(C);
+					MyFile << Line << endl;
+				}
 			}
 			MyFile.close();
 		}
@@ -86,7 +90,7 @@ private:
 	}
 
 	void _Update() {
-		vector <BankClient> _vClients = _LoadClientsDataFromFile();
+		vector <BankClient> _vClients = _LoadClientsObjectFromFile();
 
 		for (BankClient& C : _vClients)
 		{
@@ -96,7 +100,7 @@ private:
 				break;
 			}
 		}
-		_SaveClientsDataToFile(_vClients);
+		_SaveClientsObjectToFile(_vClients);
 	}
 
 	void _AddNew() {
@@ -121,6 +125,11 @@ public:
 
 	bool IsEmpty() {
 		return (_Mode == enMode::EmptyMode);
+	}
+
+	bool MarkedForDelete()
+	{
+		return _MarkedForDelete;
 	}
 
 	string AccountNumber() { return _AccountNumber; }
@@ -232,5 +241,23 @@ public:
 
 	static BankClient GetAddNewClientObject(string AccountNumber) {
 		return BankClient(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
+	}
+
+	bool Delete() {
+		vector <BankClient> vClients = _LoadClientsObjectFromFile();
+
+		for (BankClient& C : vClients)
+		{
+			if (C._AccountNumber == _AccountNumber)
+			{
+				C._MarkedForDelete = true;
+				break;
+			}
+		}
+
+		_SaveClientsObjectToFile(vClients);
+		*this = _GetEmptyClientObject();
+
+		return true;
 	}
 };
