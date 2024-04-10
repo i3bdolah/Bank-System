@@ -12,7 +12,7 @@ string const File = "Clients.txt";
 class BankClient : public Person
 {
 private:
-	enum enMode { EmptyMode = 0, UpdateMode = 1 };
+	enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
 	enMode _Mode;
 
 	string _AccountNumber;
@@ -74,6 +74,16 @@ private:
 		}
 	}
 
+	void _AddLineToFile(string Line) {
+		fstream MyFile;
+		MyFile.open(File, ios::out | ios::app);
+
+		if (MyFile.is_open())
+		{
+			MyFile << Line << endl;
+			MyFile.close();
+		}
+	}
 
 	void _Update() {
 		vector <BankClient> _vClients = _LoadClientsDataFromFile();
@@ -87,6 +97,10 @@ private:
 			}
 		}
 		_SaveClientsDataToFile(_vClients);
+	}
+
+	void _AddNew() {
+		_AddLineToFile(_ConvertClientObjectToLine(*this));
 	}
 
 	static BankClient _GetEmptyClientObject() {
@@ -178,16 +192,36 @@ public:
 		return _GetEmptyClientObject();
 	}
 
-	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1 };
+	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1, svFaildAccountNumberExists = 2 };
 
 	enSaveResults Save() {
 		switch (_Mode)
 		{
 		case BankClient::EmptyMode:
+		{
 			return enSaveResults::svFaildEmptyObject;
+		}
+
 		case BankClient::UpdateMode:
+		{
 			_Update();
 			return enSaveResults::svSucceeded;
+		}
+
+		case BankClient::AddNewMode:
+		{
+
+			if (BankClient::IsClientExist(_AccountNumber))
+			{
+				return enSaveResults::svFaildAccountNumberExists;
+			}
+			else
+			{
+				_AddNew();
+				_Mode = enMode::UpdateMode;
+				return svSucceeded;
+			}
+		}
 		}
 	}
 
@@ -196,5 +230,7 @@ public:
 		return !Find(AccountNumber).IsEmpty();
 	}
 
+	static BankClient GetAddNewClientObject(string AccountNumber) {
+		return BankClient(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
+	}
 };
-
