@@ -32,7 +32,7 @@ void UpdateClient() {
 
 	while (!BankClient::IsClientExist(AccountNumber))
 	{
-		cout << "\nNot Found ...\nPlease Re-Enter Your Account Number : ";
+		cout << "\nNot Found!\nPlease Re-Enter Your Account Number : ";
 		AccountNumber = InputValidation::ReadString();
 	}
 
@@ -70,7 +70,7 @@ void AddNewClient() {
 	AccountNumber = InputValidation::ReadString();
 	while (BankClient::IsClientExist(AccountNumber))
 	{
-		cout << "\nThe Number Is Already Exist ...\n";
+		cout << "\nThe Number Is Already Exist!\n";
 		cout << "Please Re-Enter Your Account Number : ";
 		AccountNumber = InputValidation::ReadString();
 	}
@@ -109,7 +109,7 @@ void DeleteClient() {
 	AccountNumber = InputValidation::ReadString();
 	while (!BankClient::IsClientExist(AccountNumber))
 	{
-		cout << "\nThe Number Is NOT Exist ...\n";
+		cout << "\nThe Number Is NOT Exist!\n";
 		cout << "Please Re-Enter Your Account Number : ";
 		AccountNumber = InputValidation::ReadString();
 	}
@@ -136,9 +136,55 @@ void DeleteClient() {
 
 }
 
+void PrintClientLine(BankClient Client) {
+	cout << "| " << left << setw(11) << Client.AccountNumber();
+	cout << "| " << left << setw(20) << Client.FullName();
+	cout << "| " << left << setw(12) << Client.Phone;
+	cout << "| " << left << setw(25) << Client.Email;
+	cout << "| " << left << setw(9) << Client.PinCode;
+	cout << "| " << left << setw(12) << Client.AccountBalance;
+	cout << '\n';
+}
+
+void ShowClientsList() {
+
+	vector <BankClient> vClients = {};
+	//vector <BankClient> vClients = BankClient::GetClientsList();
+
+	cout << "\t\t\t\t";
+	cout << "Client List(" << vClients.size() << ") Client(s).";
+	cout << "\n________________________________________________";
+	cout << "________________________________________________\n";
+
+	cout << "| " << left << setw(11) << "Acc. Number";
+	cout << "| " << left << setw(20) << "Client Name";
+	cout << "| " << left << setw(12) << "Phone";
+	cout << "| " << left << setw(25) << "Email";
+	cout << "| " << left << setw(9) << "Pin Code";
+	cout << "| " << left << setw(12) << "Balance";
+	cout << "\n________________________________________________";
+	cout << "________________________________________________\n";
+
+	if (vClients.size() == 0)
+	{
+		cout << "\n\t\t\t";
+		cout << "Sorry, No Client Found in The Database.\n";
+	}
+	else
+	{
+		for (BankClient& C : vClients)
+		{
+			PrintClientLine(C);
+		}
+	}
+	cout << "\n________________________________________________";
+	cout << "________________________________________________\n";
+}
+
 int main()
 {
 	//UpdateClient();
 	//AddNewClient();
-	DeleteClient();
+	//DeleteClient();
+	ShowClientsList();
 }

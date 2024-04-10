@@ -260,4 +260,8 @@ public:
 
 		return true;
 	}
+
+	static vector <BankClient> GetClientsList() {
+		return _LoadClientsObjectFromFile();
+	}
 };
