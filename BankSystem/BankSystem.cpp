@@ -190,6 +190,8 @@ void PrintShowBalancesListLine(BankClient Client) {
 void ShowClientsBalance() {
 	vector <BankClient> vClients = BankClient::GetClientsList();
 	double TotalBalances = BankClient::GetTotalBalances();
+	vector <BankClient> vClients = {};
+	double TotalBalances = 0;
 
 
 	cout << "\t\t\t\t";
@@ -213,13 +215,15 @@ void ShowClientsBalance() {
 		{
 			PrintShowBalancesListLine(C);
 		}
+		cout << "\n________________________________________________";
+		cout << "________________________________________________\n";
+		cout << "\n\t\t\t";
+		cout << "Total Balances = " << TotalBalances << endl;
+		cout << "\t\t\t";
+		cout << "(" << String::TrimRight(Utility::NumberToText((int)TotalBalances)) << ")." << endl;
 	}
 	cout << "\n________________________________________________";
 	cout << "________________________________________________\n";
-	cout << "\n\t\t\t";
-	cout << "Total Balances = " << TotalBalances << endl;
-	cout << "\t\t\t";
-	cout << "( " << Utility::NumberToText((int)TotalBalances) << ")." << endl;
 }
 
 int main()
