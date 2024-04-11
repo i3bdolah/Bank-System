@@ -66,7 +66,6 @@ public:
 	static short ReadShortBetween(short from, short to,
 		string errorMsg = "Invalid Input, Re-Enter your number : ") {
 
-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		short num = ReadShort(errorMsg);
 		while (!IsNumberBetween(num, from, to)) {
 			cout << errorMsg;

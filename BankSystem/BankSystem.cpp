@@ -2,6 +2,7 @@
 #include "BankClient.h"
 #include "InputValidation.h"
 #include "Utility.h"
+#include "MainScreen.h"
 using namespace std;
 
 void ReadClientInfo(BankClient& Client)
@@ -190,8 +191,8 @@ void PrintShowBalancesListLine(BankClient Client) {
 void ShowClientsBalance() {
 	vector <BankClient> vClients = BankClient::GetClientsList();
 	double TotalBalances = BankClient::GetTotalBalances();
-	vector <BankClient> vClients = {};
-	double TotalBalances = 0;
+	//vector <BankClient> vClients = {};
+	//double TotalBalances = 0;
 
 
 	cout << "\t\t\t\t";
@@ -232,5 +233,7 @@ int main()
 	//AddNewClient();
 	//DeleteClient();
 	//ShowClientsList();
-	ShowClientsBalance();
+	//ShowClientsBalance();
+
+	MainScreen::ShowMainMenu();
 }
