@@ -23,7 +23,7 @@ public:
 	}
 
 
-	
+
 
 	static int ReadInt(string errorMsg = "Invalid Input, Re-Enter your number : ") {
 		int num;
@@ -39,7 +39,7 @@ public:
 
 	static int ReadIntBetween(int from, int to,
 		string errorMsg = "Invalid Input, Re-Enter your number : ") {
-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 		int num = ReadInt(errorMsg);
 		while (!IsNumberBetween(num, from, to)) {
 			cout << errorMsg;
@@ -92,7 +92,6 @@ public:
 	static float ReadFloatBetween(float from, float to,
 		string errorMsg = "Invalid Input, Re-Enter your number : ") {
 
-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		float num = ReadFloat(errorMsg);
 		while (!IsNumberBetween(num, from, to)) {
 			cout << errorMsg;
@@ -119,7 +118,6 @@ public:
 	static double ReadDoubleBetween(double from, double to,
 		string errorMsg = "Invalid Input, Re-Enter your number : ") {
 
-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		double num = ReadDouble(errorMsg);
 		while (!IsNumberBetween(num, from, to)) {
 			cout << errorMsg;
