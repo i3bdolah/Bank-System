@@ -142,7 +142,9 @@ public:
 	double GetAccountBalance() { return _AccountBalance; }
 	__declspec(property(get = GetAccountBalance, put = SetAccountBalance)) double AccountBalance;
 
-	void Print()
+	// No UI Related In the Back-end.
+
+	/*void Print()
 	{
 		cout << "\nClient Card:";
 		cout << "\n___________________";
@@ -156,7 +158,7 @@ public:
 		cout << "\nBalance     : " << _AccountBalance;
 		cout << "\n___________________\n";
 
-	}
+	}*/
 
 	static BankClient Find(string AccountNumber) {
 		fstream MyFile;
@@ -201,14 +203,14 @@ public:
 		return _GetEmptyClientObject();
 	}
 
-	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1, svFaildAccountNumberExists = 2 };
+	enum enSaveResults { svFailedEmptyObject = 0, svSucceeded = 1, svFaildAccountNumberExists = 2 };
 
 	enSaveResults Save() {
 		switch (_Mode)
 		{
 		case BankClient::EmptyMode:
 		{
-			return enSaveResults::svFaildEmptyObject;
+			return enSaveResults::svFailedEmptyObject;
 		}
 
 		case BankClient::UpdateMode:

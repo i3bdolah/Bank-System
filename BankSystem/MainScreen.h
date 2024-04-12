@@ -1,9 +1,13 @@
 #pragma once
 #include <iostream>
+#include <iomanip>
 #include "Screen.h"
 #include "InputValidation.h"
-#include <iomanip>
-
+#include "ClientsListScreen.h"
+#include "AddNewClientScreen.h"
+#include "DeleteClientScreen.h"
+#include "UpdateClientScreen.h"
+#include "FindClientScreen.h"
 using namespace std;
 
 class MainScreen : protected Screen
@@ -20,7 +24,6 @@ class MainScreen : protected Screen
 		return Choice;
 	}
 
-
 	static void  _GoBackToMainMenu() { // enum = 8
 		cout << "\n\n";
 		cout << "Press Any Key To Go Back To Main Menu...\n";
@@ -30,23 +33,28 @@ class MainScreen : protected Screen
 	}
 
 	static void _ShowListClientsScreen() { // enum = 1
-		cout << endl << "List Clients Screen" << endl;
+		//cout << endl << "List Clients Screen" << endl;
+		ClientsListScreen::ShowClientsList();
 	}
 
 	static void _ShowAddNewClientsScreen() { // enum = 2
-		cout << endl << "Add New Clients Screen" << endl;
+		//cout << endl << "Add New Clients Screen" << endl;
+		AddNewClientScreen::ShowAddNewClient();
 	}
 
 	static void _ShowDeleteClientsScreen() { // enum = 3
-		cout << endl << "Delete Clients Screen" << endl;
+		//cout << endl << "Delete Clients Screen" << endl;
+		DeleteClientScreen::ShowDeleteClient();
 	}
 
 	static void _ShowUpdateClientsScreen() { // enum = 4
-		cout << endl << "Update Clients Screen" << endl;
+		//cout << endl << "Update Clients Screen" << endl;
+		UpdateClientScreen::ShowUpdateClient();
 	}
 
 	static void _ShowFindClientsScreen() { // enum = 5
-		cout << endl << "Find Clients Screen" << endl;
+		//cout << endl << "Find Clients Screen" << endl;
+		FindClientScreen::ShowFindClient();
 	}
 
 	static void _ShowTransactionsMenuScreen() { // enum = 6
@@ -111,11 +119,11 @@ public:
 	{
 
 		system("cls");
-		_DrawScreenHeader("\t\tMain Screen");
+		_DrawScreenHeader("Main Screen");
 
-		cout << "===========================================\n";
-		cout << "Main Menu\n";
-		cout << "===========================================\n\n";
+		//cout << "===========================================\n";
+		//cout << "Main Menu\n";
+		//cout << "===========================================\n\n";
 		cout << "[1] List Clients \n";
 		cout << "[2] Add New Client\n";
 		cout << "[3] Delete Client\n";
@@ -126,7 +134,7 @@ public:
 		cout << "[8] Logout\n\n";
 		cout << "===========================================\n";
 
-		_PerformMainMenuOption((enMainMenuOptions) _ReadMainMenuOption());
+		_PerformMainMenuOption((enMainMenuOptions)_ReadMainMenuOption());
 	}
 };
 

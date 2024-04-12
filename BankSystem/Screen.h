@@ -8,11 +8,11 @@ class Screen
 protected:
 	static void _DrawScreenHeader(string Title, string Subtitle = "") {
 		cout << "______________________________________\n\n";
-		cout << Title;
+		cout << "\t" << Title;
 
 		if (Subtitle != "")
 		{
-			cout << "\n" << Subtitle;
+			cout << "\n\t" << Subtitle;
 		}
 		cout << "\n______________________________________\n\n";
 	}
