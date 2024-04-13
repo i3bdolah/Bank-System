@@ -4,6 +4,8 @@
 #include "InputValidation.h"
 #include "Screen.h"
 #include "DepositScreen.h"
+#include "WithdrawScreen.h"
+#include "TotalBalancesScreen.h"
 using namespace std;
 
 class TransactionsMenuScreen : protected Screen {
@@ -34,11 +36,13 @@ private:
 	};
 
 	static void _ShowWithdrawScreen() { // enum 2
-		cout << endl << "Withdraw Screen" << endl;
+		//cout << endl << "Withdraw Screen" << endl;
+		WithdrawScreen::ShowWithdrawScreen();
 	};
 
 	static void _ShowShowTotalBalancesScreen() { // enum 3
-		cout << endl << "Show Total Balances Screen" << endl;
+		//cout << endl << "Show Total Balances Screen" << endl;
+		TotalBalancesScreen::ShowTotalBalancesScreen();
 	};
 
 	static void _PerformMainMenuOption(enMainMenuOptions Option) {
@@ -79,7 +83,7 @@ public:
 		//cout << "===========================================\n\n";
 		cout << "[1] Deposit\n";
 		cout << "[2] Withdraw\n";
-		cout << "[3] Show Total Balances\n";
+		cout << "[3] Total Balances\n";
 		cout << "[4] Main Menu\n";
 		cout << "===========================================\n";
 

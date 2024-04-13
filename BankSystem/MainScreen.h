@@ -103,7 +103,7 @@ class MainScreen : protected Screen
 			system("cls");
 			_ShowTransactionsMenuScreen();
 			//_GoBackToMainMenu();
-			ShowMainMenu(); // I want to show the main menu directly when the user enteres 4 in the transactions screen.
+			ShowMainMenu(); // I want to show the main menu directly when the user enters 4 in the transactions screen.
 			break;
 		case enMainMenuOptions::eManageUsers:
 			system("cls");

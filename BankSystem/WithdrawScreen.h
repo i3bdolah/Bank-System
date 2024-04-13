@@ -1,12 +1,12 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
-#include "InputValidation.h"
-#include "BankClient.h"
 #include "Screen.h"
+#include "BankClient.h"
+#include "InputValidation.h"
 using namespace std;
 
-class DepositScreen : protected Screen {
+class WithdrawScreen : protected Screen {
 private:
 
 	static void _PrintClient(BankClient Client) {
@@ -25,8 +25,8 @@ private:
 
 public:
 
-	static void ShowDepositScreen() {
-		_DrawScreenHeader("Deposit");
+	static void ShowWithdrawScreen() {
+		_DrawScreenHeader("Withdraw");
 
 		string AccountNumber = "";
 
@@ -43,22 +43,36 @@ public:
 		_PrintClient(Client);
 
 		double Amount = 0.0;
-		cout << "\nPlease Enter The Deposit Amount : ";
+		cout << "\nPlease Enter The Withdraw Amount : ";
 		Amount = InputValidation::ReadDouble();
 
-		cout << "\nAre you sure, You want to Deposit This Amount [Y/N] : ";
+		while (!(Amount > 0.0 && Amount <= Client.AccountBalance))
+		{
+			cout << "\nPlease Re-Enter Valid Withdraw Amount : ";
+			Amount = InputValidation::ReadDouble();
+		}
+
+		cout << "\nAre you sure, You want to Withdraw This Amount [Y/N] : ";
 		char ConfirmationResponse = 'N';
 		cin >> ConfirmationResponse;
 
 		if (ConfirmationResponse == 'Y' || ConfirmationResponse == 'y') {
-			Client.Deposit(Amount);
-			cout << "\nAmount Deposited Successfully.\n";
-			cout << "\nThe New Balance for " << Client.FullName() << " is = " << Client.AccountBalance <<"\n";
+
+			if (Client.Withdraw(Amount)) {
+				cout << "\nAmount Withdrawn Successfully.\n";
+				cout << "\nThe New Balance for " << Client.FullName() << " is = " << Client.AccountBalance << "\n";
+			}
+			else
+			{
+				cout << "\nWithdraw Cancelled Due Insufficient Balance. You Will Be Re-Directed\n";
+			}
+
 		}
 		else
 		{
-			cout << "\nDeposit Cancelled. You Will Be Re-Directed\n";
+			cout << "\nWithdraw Cancelled. You Will Be Re-Directed\n";
 		}
+
 	}
 
 };

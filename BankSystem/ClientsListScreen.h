@@ -9,7 +9,7 @@ class ClientsListScreen : protected Screen
 {
 private:
 	
-	static void PrintShowClientsListLine(BankClient Client) {
+	static void _PrintClientListLine(BankClient Client) {
 		cout << "| " << left << setw(11) << Client.AccountNumber();
 		cout << "| " << left << setw(20) << Client.FullName();
 		cout << "| " << left << setw(12) << Client.Phone;
@@ -48,7 +48,7 @@ public:
 		{
 			for (BankClient& C : vClients)
 			{
-				PrintShowClientsListLine(C);
+				_PrintClientListLine(C);
 			}
 		}
 		cout << "\n________________________________________________";

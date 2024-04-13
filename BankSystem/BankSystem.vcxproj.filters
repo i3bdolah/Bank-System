@@ -68,5 +68,11 @@
     <ClInclude Include="DepositScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WithdrawScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TotalBalancesScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
