@@ -62,5 +62,11 @@
     <ClInclude Include="FindClientScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TransactionsMenuScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DepositScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

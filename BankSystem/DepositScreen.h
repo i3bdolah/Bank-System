@@ -1,13 +1,14 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
+#include "InputValidation.h"
 #include "BankClient.h"
 #include "Screen.h"
 using namespace std;
 
-class UpdateClientScreen : protected Screen
-{
+class DepositScreen : protected Screen {
 private:
+
 	static void _ReadClientInfo(BankClient& Client)
 	{
 		cout << "\nEnter First Name: ";
@@ -42,10 +43,11 @@ private:
 		cout << "\nBalance     : " << Client.AccountBalance;
 		cout << "\n___________________\n";
 	}
+
 public:
 
-	static void ShowUpdateClient() {
-		_DrawScreenHeader("Update Client");
+	static void ShowDepositScreen() {
+		_DrawScreenHeader("Deposit");
 
 		string AccountNumber = "";
 
@@ -59,45 +61,25 @@ public:
 		}
 
 		BankClient Client = BankClient::Find(AccountNumber);
-
 		_PrintClient(Client);
 
-		cout << "\nAre you sure, You want to Update This Client [Y/N] : ";
+		double Amount = 0.0;
+		cout << "\nPlease Enter The Deposit Amount : ";
+		Amount = InputValidation::ReadDouble();
+
+		cout << "\nAre you sure, You want to Deposit This Amount [Y/N] : ";
 		char ConfirmationResponse = 'N';
 		cin >> ConfirmationResponse;
 
-		if (ConfirmationResponse == 'Y' || ConfirmationResponse == 'y')
-		{
-			cout << "\n\nUpdate Client Info:";
-			cout << "\n____________________\n";
-
-			_ReadClientInfo(Client);
-
-			BankClient::enSaveResults SaveResult;
-			SaveResult = Client.Save();
-
-			switch (SaveResult)
-			{
-			case  BankClient::enSaveResults::svSucceeded:
-			{
-				cout << "\nAccount Updated Successfully :-)\n";
-				cout << "\n\nThe Updated Client Info:";
-				cout << "\n____________________\n";
-				_PrintClient(Client);
-				break;
-			}
-			case BankClient::enSaveResults::svFailedEmptyObject:
-			{
-				cout << "\nError Account as not Saved because it's Empty";
-				break;
-			}
-			}
+		if (ConfirmationResponse == 'Y' || ConfirmationResponse == 'y') {
+			Client.Deposit(Amount);
+			cout << "\nAmount Deposited Successfully.\n";
+			cout << "\nThe New Balance for " << Client.FullName() << " is = " << Client.AccountBalance <<"\n";
 		}
 		else
 		{
-			cout << "\nUpdate Cancelled. You Will Be Re-Directed\n";
+			cout << "\nDeposit Cancelled. You Will Be Re-Directed\n";
 		}
-
 	}
 
 };

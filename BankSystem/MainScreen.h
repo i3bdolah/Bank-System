@@ -8,6 +8,7 @@
 #include "DeleteClientScreen.h"
 #include "UpdateClientScreen.h"
 #include "FindClientScreen.h"
+#include "TransactionsMenuScreen.h"
 using namespace std;
 
 class MainScreen : protected Screen
@@ -58,7 +59,8 @@ class MainScreen : protected Screen
 	}
 
 	static void _ShowTransactionsMenuScreen() { // enum = 6
-		cout << endl << "Transactions Menu Screen" << endl;
+		//cout << endl << "Transactions Menu Screen" << endl;
+		TransactionsMenuScreen::ShowTransactionsMenu();
 	}
 
 	static void _ShowManageUsersScreen() { // enum = 7
@@ -100,7 +102,8 @@ class MainScreen : protected Screen
 		case enMainMenuOptions::eShowTransactionsMenue:
 			system("cls");
 			_ShowTransactionsMenuScreen();
-			_GoBackToMainMenu();
+			//_GoBackToMainMenu();
+			ShowMainMenu(); // I want to show the main menu directly when the user enteres 4 in the transactions screen.
 			break;
 		case enMainMenuOptions::eManageUsers:
 			system("cls");
@@ -127,7 +130,7 @@ public:
 		cout << "[1] List Clients \n";
 		cout << "[2] Add New Client\n";
 		cout << "[3] Delete Client\n";
-		cout << "[4] Update Client Info\n";
+		cout << "[4] Update Client\n";
 		cout << "[5] Find Client\n";
 		cout << "[6] Transactions\n";
 		cout << "[7] Manage Users\n";
