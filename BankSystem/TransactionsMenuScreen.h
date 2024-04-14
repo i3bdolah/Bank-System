@@ -11,12 +11,12 @@ using namespace std;
 class TransactionsMenuScreen : protected Screen {
 private:
 
-	enum enMainMenuOptions
+	enum enTransactionsMenuOptions
 	{
 		eDeposit = 1, eWithdraw = 2, eShowTotalBalances = 3, eShowMainMenu = 4
 	};
 
-	static short _ReadMainMenuOption() {
+	static short _ReadTransactionsMenuOption() {
 		cout << "Choose What Do You Want To Do [1 to 4] : ";
 		short Choice = InputValidation::ReadShortBetween(1, 4, "Enter Number Between 1 to 4 : ");
 		return Choice;
@@ -24,7 +24,7 @@ private:
 
 	static void  _GoBackToTransactionsMenu() {
 		cout << "\n\n";
-		cout << "Press Any Key To Go Back To Main Menu...\n";
+		cout << "Press Any Key To Go Back To Transactions Menu...\n";
 
 		system("pause>0");
 		ShowTransactionsMenu();
@@ -45,25 +45,25 @@ private:
 		TotalBalancesScreen::ShowTotalBalancesScreen();
 	};
 
-	static void _PerformMainMenuOption(enMainMenuOptions Option) {
+	static void _PerformTransactionsMenuOption(enTransactionsMenuOptions Option) {
 		switch (Option)
 		{
-		case enMainMenuOptions::eDeposit:
+		case enTransactionsMenuOptions::eDeposit:
 			system("cls");
 			_ShowDepositScreen();
 			_GoBackToTransactionsMenu();
 			break;
-		case enMainMenuOptions::eWithdraw:
+		case enTransactionsMenuOptions::eWithdraw:
 			system("cls");
 			_ShowWithdrawScreen();
 			_GoBackToTransactionsMenu();
 			break;
-		case enMainMenuOptions::eShowTotalBalances:
+		case enTransactionsMenuOptions::eShowTotalBalances:
 			system("cls");
 			_ShowShowTotalBalancesScreen();
 			_GoBackToTransactionsMenu();
 			break;
-		case enMainMenuOptions::eShowMainMenu:
+		case enTransactionsMenuOptions::eShowMainMenu:
 			//system("cls");
 			// Will Get Back Directly.
 			break;
@@ -84,10 +84,10 @@ public:
 		cout << "[1] Deposit\n";
 		cout << "[2] Withdraw\n";
 		cout << "[3] Total Balances\n";
-		cout << "[4] Main Menu\n";
+		cout << "[4] Main Menu\n\n";
 		cout << "===========================================\n";
 
-		_PerformMainMenuOption((enMainMenuOptions)_ReadMainMenuOption());
+		_PerformTransactionsMenuOption((enTransactionsMenuOptions)_ReadTransactionsMenuOption());
 	}
 
 };

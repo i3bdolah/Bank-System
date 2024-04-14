@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <iomanip>
 #include "Screen.h"
 #include "InputValidation.h"
 #include "ClientsListScreen.h"
@@ -9,6 +8,7 @@
 #include "UpdateClientScreen.h"
 #include "FindClientScreen.h"
 #include "TransactionsMenuScreen.h"
+#include "ManageUsersScreen.h"
 using namespace std;
 
 class MainScreen : protected Screen
@@ -64,7 +64,8 @@ class MainScreen : protected Screen
 	}
 
 	static void _ShowManageUsersScreen() { // enum = 7
-		cout << endl << "Manage Users Screen" << endl;
+		//cout << endl << "Manage Users Screen" << endl;
+		ManageUsersScreen::ShowManageUsers();
 	}
 
 	static void ShowEndScreen() {
@@ -108,7 +109,8 @@ class MainScreen : protected Screen
 		case enMainMenuOptions::eManageUsers:
 			system("cls");
 			_ShowManageUsersScreen();
-			_GoBackToMainMenu();
+			//_GoBackToMainMenu();
+			ShowMainMenu(); // I want to show the main menu directly when the user enters 4 in the transactions screen.
 			break;
 		case enMainMenuOptions::eExit:
 			system("cls");
