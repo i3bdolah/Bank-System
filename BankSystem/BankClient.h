@@ -7,7 +7,7 @@
 #include "String.h"
 using namespace std;
 
-string const File = "Clients.txt";
+string const ClientFile = "Clients.txt";
 
 class BankClient : public Person
 {
@@ -30,7 +30,7 @@ private:
 	static vector <BankClient> _LoadClientsObjectFromFile() {
 		vector <BankClient> _vClients;
 		fstream MyFile;
-		MyFile.open(File, ios::in); // Reading Mode
+		MyFile.open(ClientFile, ios::in); // Reading Mode
 
 		if (MyFile.is_open())
 		{
@@ -61,7 +61,7 @@ private:
 
 	static void _SaveClientsObjectToFile(vector <BankClient> vClients) {
 		fstream MyFile;
-		MyFile.open(File, ios::out); // Overwrite Mode
+		MyFile.open(ClientFile, ios::out); // Overwrite Mode
 
 		string Line;
 		if (MyFile.is_open())
@@ -80,7 +80,7 @@ private:
 
 	void _AddLineToFile(string Line) {
 		fstream MyFile;
-		MyFile.open(File, ios::out | ios::app);
+		MyFile.open(ClientFile, ios::out | ios::app);
 
 		if (MyFile.is_open())
 		{
@@ -162,7 +162,7 @@ public:
 
 	static BankClient Find(string AccountNumber) {
 		fstream MyFile;
-		MyFile.open(File, ios::in); // Reading Mode
+		MyFile.open(ClientFile, ios::in); // Reading Mode
 
 		if (MyFile.is_open())
 		{
@@ -183,7 +183,7 @@ public:
 
 	static BankClient Find(string AccountNumber, string PinCode) {
 		fstream MyFile;
-		MyFile.open(File, ios::in); // Reading Mode
+		MyFile.open(ClientFile, ios::in); // Reading Mode
 
 		if (MyFile.is_open())
 		{

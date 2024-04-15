@@ -2,6 +2,7 @@
 #include <iostream>
 #include "InputValidation.h"
 #include "Screen.h"
+#include "ListUserScreen.h"
 using namespace std;
 
 class ManageUsersScreen : protected Screen {
@@ -24,7 +25,8 @@ private:
 	}
 
 	static void _ShowListUserScreen() { // enum = 1
-		cout << endl << "List User Screen" << endl;
+		//cout << endl << "List User Screen" << endl;
+		ListUserScreen::ShowListUserScreen();
 	};
 	
 	static void _ShowAddNewUserScreen() { // enum = 2
