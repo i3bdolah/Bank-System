@@ -70,7 +70,7 @@ public:
 		case  BankClient::enSaveResults::svSucceeded:
 		{
 			cout << "\n________________________________\n";
-			cout << "\nAccount Updated Successfully :-)\n";
+			cout << "\nAccount Added Successfully :-)\n";
 			_PrintClient(Client);
 			break;
 		}

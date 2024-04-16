@@ -113,6 +113,16 @@ private:
 
 public:
 
+	enum enPermissions {
+		eListClients = 1,
+		eAddNewClient = 2,
+		eUpdateClient = 4,
+		eDeleteClient = 8,
+		eFindClient = 16,
+		eTransactions = 32,
+		eManageUsers = 64,
+	};
+
 	BankUser(enMode _Mode,
 		string _FirstName, string _LastName, string _Email, string _Phone,
 		string _Username, string _Password, int _Permissions)
@@ -187,10 +197,10 @@ public:
 		return _GetEmptyUserObject();
 	}
 
-	enum enSaveResults { 
-		svFailedEmptyObject = 0, 
-		svSucceeded = 1, 
-		svFaildUsernameExists = 2 
+	enum enSaveResults {
+		svFailedEmptyObject = 0,
+		svSucceeded = 1,
+		svFaildUsernameExists = 2
 	};
 
 	enSaveResults Save() {
