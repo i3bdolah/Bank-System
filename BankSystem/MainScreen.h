@@ -139,6 +139,7 @@ public:
 		cout << "[8] Logout\n\n";
 		cout << "===========================================\n";
 
+		//_PerformMainMenuOption(enMainMenuOptions::eManageUsers);
 		_PerformMainMenuOption((enMainMenuOptions)_ReadMainMenuOption());
 	}
 };

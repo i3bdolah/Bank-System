@@ -40,6 +40,15 @@ public:
 		}
 
 		BankClient Client = BankClient::Find(AccountNumber);
+
+		if (!Client.IsEmpty())
+		{
+			cout << "\nClient Found\n";
+		}
+		else {
+			cout << "\nSorry, Client Is Empty!\n";
+		}
+
 		_PrintClient(Client);
 	}
 

@@ -4,6 +4,9 @@
 #include "Screen.h"
 #include "ListUserScreen.h"
 #include "AddNewUserScreen.h"
+#include "DeleteUserScreen.h"
+#include "UpdateUserScreen.h"
+#include "FindUserScreen.h"
 using namespace std;
 
 class ManageUsersScreen : protected Screen {
@@ -36,15 +39,18 @@ private:
 	};
 	
 	static void _ShowDeleteUserScreen() { // enum = 3
-		cout << endl << "Delete User Screen" << endl;
+		//cout << endl << "Delete User Screen" << endl;
+		DeleteUserScreen::ShowDeleteUserScreen();
 	};
 	
 	static void _ShowUpdateUserScreen() { // enum = 4
-		cout << endl << "Update User Screen" << endl;
+		//cout << endl << "Update User Screen" << endl;
+		UpdateUserScreen::ShowUpdateUser();
 	};
 	
 	static void _ShowFindUserScreen() { // enum = 5
-		cout << endl << "Find User Screen" << endl;
+		//cout << endl << "Find User Screen" << endl;
+		FindUserScreen::ShowFindUserScreen();
 	};
 	
 	static void _ShowMainMenuScreen() { // enum = 6
