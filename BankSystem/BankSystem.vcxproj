@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BankSystem.cpp" />
-    <ClCompile Include="BankUser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddNewClientScreen.h" />
@@ -142,8 +141,10 @@
     <ClInclude Include="DepositScreen.h" />
     <ClInclude Include="FindClientScreen.h" />
     <ClInclude Include="FindUserScreen.h" />
+    <ClInclude Include="Global.h" />
     <ClInclude Include="InputValidation.h" />
     <ClInclude Include="ListUserScreen.h" />
+    <ClInclude Include="LoginScreen.h" />
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="ManageUsersScreen.h" />
     <ClInclude Include="Period.h" />

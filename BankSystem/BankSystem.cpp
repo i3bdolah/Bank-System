@@ -1,5 +1,5 @@
 #include <iostream>
-#include "MainScreen.h"
+#include "LoginScreen.h"
 using namespace std;
 
 int main()
@@ -10,5 +10,6 @@ int main()
 	//ShowClientsList();
 	//ShowClientsBalance();
 
-	MainScreen::ShowMainMenu();
+	//MainScreen::ShowMainMenu();
+	LoginScreen::ShowLoginScreen();
 }
