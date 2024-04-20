@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include "BankClient.h"
+#include "BankUser.h"
 #include "Screen.h"
 using namespace std;
 
@@ -45,6 +46,12 @@ private:
 public:
 
 	static void ShowUpdateClient() {
+
+		if (!CheckPermission(BankUser::enPermissions::eUpdateClient))
+		{
+			return;
+		}
+
 		_DrawScreenHeader("Update Client");
 
 		string AccountNumber = "";

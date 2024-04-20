@@ -4,12 +4,8 @@ using namespace std;
 
 int main()
 {
-	//UpdateClient();
-	//AddNewClient();
-	//DeleteClient();
-	//ShowClientsList();
-	//ShowClientsBalance();
-
-	//MainScreen::ShowMainMenu();
-	LoginScreen::ShowLoginScreen();
+	while (true)
+	{
+		LoginScreen::ShowLoginScreen();
+	}
 }

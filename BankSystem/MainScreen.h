@@ -2,13 +2,14 @@
 #include <iostream>
 #include "Screen.h"
 #include "InputValidation.h"
-#include "ClientsListScreen.h"
+#include "ListClientsScreen.h"
 #include "AddNewClientScreen.h"
 #include "DeleteClientScreen.h"
 #include "UpdateClientScreen.h"
 #include "FindClientScreen.h"
 #include "TransactionsMenuScreen.h"
 #include "ManageUsersScreen.h"
+#include "Global.h"
 using namespace std;
 
 class MainScreen : protected Screen
@@ -35,7 +36,7 @@ class MainScreen : protected Screen
 
 	static void _ShowListClientsScreen() { // enum = 1
 		//cout << endl << "List Clients Screen" << endl;
-		ClientsListScreen::ShowClientsList();
+		ListClientsScreen::ShowClientsList();
 	}
 
 	static void _ShowAddNewClientsScreen() { // enum = 2
@@ -68,8 +69,12 @@ class MainScreen : protected Screen
 		ManageUsersScreen::ShowManageUsers();
 	}
 
-	static void ShowEndScreen() {
-		cout << endl << "End Screen Will Be Here..." << endl;
+	//static void ShowEndScreen() {
+	//	cout << endl << "End Screen Will Be Here..." << endl;
+	//}
+
+	static void _Logout() {
+		GlobalUser = BankUser::Find("", "");
 	}
 
 	static void _PerformMainMenuOption(enMainMenuOptions Option) {
@@ -103,18 +108,16 @@ class MainScreen : protected Screen
 		case enMainMenuOptions::eShowTransactionsMenue:
 			system("cls");
 			_ShowTransactionsMenuScreen();
-			//_GoBackToMainMenu();
-			ShowMainMenu(); // I want to show the main menu directly when the user enters 4 in the transactions screen.
+			_GoBackToMainMenu();
 			break;
 		case enMainMenuOptions::eManageUsers:
 			system("cls");
 			_ShowManageUsersScreen();
-			//_GoBackToMainMenu();
-			ShowMainMenu(); // I want to show the main menu directly when the user enters 4 in the transactions screen.
+			_GoBackToMainMenu();
 			break;
 		case enMainMenuOptions::eExit:
 			system("cls");
-			_GoBackToMainMenu();
+			_Logout();
 			break;
 		}
 	}

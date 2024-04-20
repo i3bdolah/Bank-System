@@ -3,6 +3,7 @@
 #include <iomanip>
 #include "InputValidation.h"
 #include "Screen.h"
+#include "BankUser.h"
 #include "DepositScreen.h"
 #include "WithdrawScreen.h"
 #include "TotalBalancesScreen.h"
@@ -74,6 +75,12 @@ public:
 
 	static void ShowTransactionsMenu()
 	{
+
+		if (!CheckPermission(BankUser::enPermissions::eTransactions))
+		{
+			return;
+		}
+
 
 		system("cls");
 		_DrawScreenHeader("Transactions Screen");

@@ -3,9 +3,10 @@
 #include <iomanip>
 #include "BankClient.h"
 #include "Screen.h"
+#include "BankUser.h"
 using namespace std;
 
-class ClientsListScreen : protected Screen
+class ListClientsScreen : protected Screen
 {
 private:
 	
@@ -22,6 +23,12 @@ private:
 public:
 
 	static void ShowClientsList() {
+
+		if (!CheckPermission(BankUser::enPermissions::eListClients))
+		{
+			return;
+		}
+
 		//vector <BankClient> vClients = {};
 		vector <BankClient> vClients = BankClient::GetClientsList();
 		string Title = "Client List";

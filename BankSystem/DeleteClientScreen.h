@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include "BankClient.h"
+#include "BankUser.h"
 #include "Screen.h"
 #include "InputValidation.h"
 using namespace std;
@@ -27,6 +28,12 @@ private:
 public:
 
 	static void ShowDeleteClient() {
+
+		if (!CheckPermission(BankUser::enPermissions::eDeleteClient))
+		{
+			return;
+		}
+
 		_DrawScreenHeader("Delete Client");
 
 		string AccountNumber = "";

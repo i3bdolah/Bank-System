@@ -121,6 +121,7 @@ public:
 		eFindClient = 16,
 		eTransactions = 32,
 		eManageUsers = 64,
+		eAll = -1
 	};
 
 	BankUser(enMode _Mode,
@@ -263,6 +264,16 @@ public:
 
 	static vector <BankUser> GetUsersList() {
 		return _LoadUsersObjectFromFile();
+	}
+
+	bool CheckPermission(enPermissions Permission) {
+		if (this->Permissions == enPermissions::eAll)
+			return true;
+
+		if ((this->Permissions & Permission) == Permission)
+			return true;
+		else
+			return false;
 	}
 };
 

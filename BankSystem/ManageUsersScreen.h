@@ -2,6 +2,7 @@
 #include <iostream>
 #include "InputValidation.h"
 #include "Screen.h"
+#include "BankUser.h"
 #include "ListUserScreen.h"
 #include "AddNewUserScreen.h"
 #include "DeleteUserScreen.h"
@@ -94,6 +95,12 @@ private:
 public:
 
 	static void ShowManageUsers() {
+
+		if (!CheckPermission(BankUser::enPermissions::eManageUsers))
+		{
+			return;
+		}
+
 		system("cls");
 
 		_DrawScreenHeader("Manage Users Screen");

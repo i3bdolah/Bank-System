@@ -47,7 +47,7 @@
     <ClInclude Include="MainScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ClientsListScreen.h">
+    <ClInclude Include="ListClientsScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AddNewClientScreen.h">

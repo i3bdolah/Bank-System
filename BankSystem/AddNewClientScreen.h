@@ -2,6 +2,7 @@
 #include "Screen.h";
 #include "BankClient.h";
 #include "InputValidation.h";
+#include "BankUser.h";
 using namespace std;
 
 class AddNewClientScreen : protected Screen
@@ -45,6 +46,12 @@ private:
 public:
 
 	static void ShowAddNewClient() {
+
+		if (!CheckPermission(BankUser::enPermissions::eAddNewClient))
+		{
+			return;
+		}
+
 		_DrawScreenHeader("Add New Client");
 		
 		string AccountNumber = "";
