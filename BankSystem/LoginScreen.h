@@ -11,21 +11,31 @@ class LoginScreen : protected Screen
 {
 private:
 
-	static void _Login() {
+	static bool _Login() {
 		bool LoginFailed = false;
+		short LockCounter = 0;
+
 		string Username, Password;
 
 		do
 		{
-
 			if (LoginFailed)
 			{
+				LockCounter++;
 				cout << "\nNot Found!\nPlease Re-Enter Your Username/Password";
+				cout << "\n" << "Attempts Left (" << 3 - LockCounter << ").";
+				if (LockCounter == 3)
+				{
+					system("cls");
+					cout << "\n\n____________SYSTEM LOCKED____________\n\n";
+					system("pause");
+					return false;
+				}
 			}
 
 			cout << "\n\nPlease Enter Username : ";
 			cin >> Username;
-			
+
 			cout << "\nPlease Enter Password : ";
 			cin >> Password;
 
@@ -36,14 +46,16 @@ private:
 		} while (LoginFailed);
 
 		MainScreen::ShowMainMenu();
+		return true;
 	}
+
 
 public:
 
-	static void ShowLoginScreen() {
+	static bool ShowLoginScreen() {
 		system("cls");
 		_DrawScreenHeader("Login");
-		_Login();
+		return _Login();
 	}
 
 };

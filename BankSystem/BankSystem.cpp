@@ -1,11 +1,14 @@
 #include <iostream>
 #include "LoginScreen.h"
+#include "Global.h"
 using namespace std;
 
 int main()
 {
 	while (true)
 	{
-		LoginScreen::ShowLoginScreen();
+		if (!LoginScreen::ShowLoginScreen()) {
+			break;
+		}
 	}
 }
