@@ -78,9 +78,9 @@ private:
 		}
 	}
 
-	void _AddLineToFile(string Line) {
+	void _AddLineToFile(string Line, string DestFile = ClientFile) {
 		fstream MyFile;
-		MyFile.open(ClientFile, ios::out | ios::app);
+		MyFile.open(DestFile, ios::out | ios::app);
 
 		if (MyFile.is_open())
 		{

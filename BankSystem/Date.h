@@ -411,6 +411,19 @@ public:
 		return date;
 	}
 
+	static string GetSystemTime() {
+		time_t t = time(0);
+		tm* now = localtime(&t);
+
+		int hour = now->tm_hour;
+		int min = now->tm_min;
+		int sec = now->tm_sec;
+
+		string FormattedTime = to_string(hour) + ":" + to_string(min) + ":" + to_string(sec);
+
+		return FormattedTime;
+	}
+
 	static int CountAllDays(Date dateAge) {
 		Date DateCurrent = GetSystemDate();
 		return DateDifference(dateAge, DateCurrent);

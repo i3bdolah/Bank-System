@@ -45,8 +45,15 @@ private:
 
 		} while (LoginFailed);
 
-		MainScreen::ShowMainMenu();
-		return true;
+		if (GlobalUser.LogUserData()) {
+			MainScreen::ShowMainMenu();
+			return true;
+		}
+		else
+		{
+			cout << "\n\nFailed To Log User Data!";
+			return false;
+		}
 	}
 
 

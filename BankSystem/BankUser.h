@@ -4,10 +4,12 @@
 #include <vector>
 #include <fstream>
 #include "Person.h"
+#include "Date.h"
 #include "String.h"
 using namespace std;
 
 string const UserFile = "Users.txt";
+string const LoginRegisterFile = "Login Register.txt";
 
 class BankUser : public Person
 {
@@ -78,9 +80,9 @@ private:
 		}
 	}
 
-	void _AddLineToFile(string Line) {
+	void _AddLineToFile(string Line, string DestFile = UserFile) {
 		fstream MyFile;
-		MyFile.open(UserFile, ios::out | ios::app);
+		MyFile.open(DestFile, ios::out | ios::app);
 
 		if (MyFile.is_open())
 		{
@@ -110,6 +112,17 @@ private:
 	static BankUser _GetEmptyUserObject() {
 		return BankUser(enMode::EmptyMode, "", "", "", "", "", "", 0);
 	};
+
+	string _CreateLogMsg() {
+		string date = Date::GetSystemDate().GetDateInString();
+		string time = Date::GetSystemTime();
+
+		vector <string> Line = { time, Username, Password, to_string(Permissions) };
+
+		string FormattedLine = date + " - " + String::Join(Line, "#//#");
+
+		return FormattedLine;
+	}
 
 public:
 
@@ -274,6 +287,18 @@ public:
 			return true;
 		else
 			return false;
+	}
+
+	bool LogUserData() {
+		if (!this->IsEmpty())
+		{
+			_AddLineToFile(_CreateLogMsg(), LoginRegisterFile);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 };
 
