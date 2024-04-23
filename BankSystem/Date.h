@@ -71,7 +71,7 @@ private:
 public:
 
 	Date() {
-		GetSystemDate();
+		*this = GetSystemDate();
 	}
 
 	Date(int day, int month, int year) {

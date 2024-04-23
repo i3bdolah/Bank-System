@@ -14,7 +14,6 @@ private:
 	static bool _Login() {
 		bool LoginFailed = false;
 		short LockCounter = 0;
-
 		string Username, Password;
 
 		do
@@ -45,13 +44,14 @@ private:
 
 		} while (LoginFailed);
 
-		if (GlobalUser.LogUserData()) {
+		if (GlobalUser.RegisterLogin()) {
 			MainScreen::ShowMainMenu();
 			return true;
 		}
 		else
 		{
 			cout << "\n\nFailed To Log User Data!";
+			cout << "\nSystem Can NOT Continue";
 			return false;
 		}
 	}

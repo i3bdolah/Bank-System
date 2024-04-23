@@ -9,6 +9,7 @@
 #include "FindClientScreen.h"
 #include "TransactionsMenuScreen.h"
 #include "ManageUsersScreen.h"
+#include "LoginRegisterScreen.h"
 #include "Global.h"
 using namespace std;
 
@@ -17,16 +18,16 @@ class MainScreen : protected Screen
 	enum enMainMenuOptions {
 		eListClient = 1, eAddNewClient = 2, eDeleteClient = 3,
 		eUpdateClient = 4, eFindClient = 5, eShowTransactionsMenue = 6,
-		eManageUsers = 7, eExit = 8
+		eManageUsers = 7, eLoginRegister = 8, eLogout = 9
 	};
 
 	static short _ReadMainMenuOption() {
-		cout << "Choose What Do You Want To Do [1 to 8] : ";
-		short Choice = InputValidation::ReadShortBetween(1, 8, "Enter Number Between 1 to 8 : ");
+		cout << "Choose What Do You Want To Do [1 to 9] : ";
+		short Choice = InputValidation::ReadShortBetween(1, 9, "Enter Number Between 1 to 9 : ");
 		return Choice;
 	}
 
-	static void  _GoBackToMainMenu() { // enum = 8
+	static void  _GoBackToMainMenu() {
 		cout << "\n\n";
 		cout << "Press Any Key To Go Back To Main Menu...\n";
 
@@ -67,6 +68,11 @@ class MainScreen : protected Screen
 	static void _ShowManageUsersScreen() { // enum = 7
 		//cout << endl << "Manage Users Screen" << endl;
 		ManageUsersScreen::ShowManageUsers();
+	}
+
+	static void _ShowLoginRegisterScreen() { // enum 8 
+		//cout << endl << "Login Register Screen" << endl;
+		LoginRegisterScreen::ShowLoginRegister();
 	}
 
 	//static void ShowEndScreen() {
@@ -115,7 +121,12 @@ class MainScreen : protected Screen
 			_ShowManageUsersScreen();
 			_GoBackToMainMenu();
 			break;
-		case enMainMenuOptions::eExit:
+		case enMainMenuOptions::eLoginRegister:
+			system("cls");
+			_ShowLoginRegisterScreen();
+			_GoBackToMainMenu();
+			break;
+		case enMainMenuOptions::eLogout:
 			system("cls");
 			_Logout();
 			break;
@@ -139,7 +150,8 @@ public:
 		cout << "[5] Find Client\n";
 		cout << "[6] Transactions\n";
 		cout << "[7] Manage Users\n";
-		cout << "[8] Logout\n\n";
+		cout << "[8] Login Register\n";
+		cout << "[9] Logout\n\n";
 		cout << "===========================================\n";
 
 		//_PerformMainMenuOption(enMainMenuOptions::eManageUsers);

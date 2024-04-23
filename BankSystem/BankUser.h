@@ -124,6 +124,22 @@ private:
 		return FormattedLine;
 	}
 
+	static vector <string> _LoadUsersLogs() {
+		vector <string> _vLines;
+		fstream MyFile;
+		MyFile.open(LoginRegisterFile, ios::in); // Reading Mode
+
+		if (MyFile.is_open())
+		{
+			string Line;
+			while (getline(MyFile, Line)) // Line By Line
+			{
+				_vLines.push_back(Line);
+			}
+			MyFile.close();
+		}
+		return _vLines;
+	}
 public:
 
 	enum enPermissions {
@@ -134,6 +150,7 @@ public:
 		eFindClient = 16,
 		eTransactions = 32,
 		eManageUsers = 64,
+		eLoginRegisterLogs = 128,
 		eAll = -1
 	};
 
@@ -289,7 +306,7 @@ public:
 			return false;
 	}
 
-	bool LogUserData() {
+	bool RegisterLogin() {
 		if (!this->IsEmpty())
 		{
 			_AddLineToFile(_CreateLogMsg(), LoginRegisterFile);
@@ -299,6 +316,10 @@ public:
 		{
 			return false;
 		}
+	}
+
+	static vector <string> GetUsersLogs() {
+		return _LoadUsersLogs();
 	}
 };
 
