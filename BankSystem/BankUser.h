@@ -150,7 +150,7 @@ public:
 		eFindClient = 16,
 		eTransactions = 32,
 		eManageUsers = 64,
-		eLoginRegisterLogs = 128,
+		eLoginRegister = 128,
 		eAll = -1
 	};
 

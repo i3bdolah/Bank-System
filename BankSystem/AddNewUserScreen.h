@@ -103,6 +103,13 @@ private:
 		{
 			Permissions += BankUser::enPermissions::eManageUsers;
 		}
+
+		cout << "\nAccess To Login Register [Y/N]  : ";
+		cin >> ConfirmationResponse;
+		if (ConfirmationResponse == 'Y' || ConfirmationResponse == 'y')
+		{
+			Permissions += BankUser::enPermissions::eLoginRegister;
+		}
 		
 		return Permissions;
 	}

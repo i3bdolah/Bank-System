@@ -20,25 +20,26 @@ public:
 
 	static void ShowLoginRegister() {
 
-		if (!CheckPermission(BankUser::enPermissions::eLoginRegisterLogs))
+		if (!CheckPermission(BankUser::enPermissions::eLoginRegister))
 		{
 			return;
 		}
 
-		vector <string> vLines = BankUser::GetUsersLogs();
+		//vector <string> vLines = BankUser::GetUsersLogs();
+		vector <string> vLines = {};
 
 		string Title = "Register Logs List";
 		string Subtitle = "(" + to_string(vLines.size()) + ") Log(s).";
 
 		_DrawScreenHeader(Title, Subtitle);
-		cout << "\n________________________________________________";
-		cout << "________________________________________________\n";
+		cout << "\n-------------------------------------------------------";
+		cout << "-------------------------------------------------------\n";
 		cout << "| " << left << setw(20) << "Date/Time";
 		cout << "| " << left << setw(20) << "Username";
 		cout << "| " << left << setw(20) << "Password";
 		cout << "| " << left << setw(20) << "Permission";
-		cout << "\n________________________________________________";
-		cout << "________________________________________________\n";
+		cout << "\n-------------------------------------------------------";
+		cout << "-------------------------------------------------------\n";
 
 		if (vLines.size() == 0)
 		{
@@ -52,8 +53,8 @@ public:
 				_PrintRegisterLine(String::Split(L, "#//#"));
 			}
 		}
-		cout << "\n________________________________________________";
-		cout << "________________________________________________\n";
+		cout << "\n-------------------------------------------------------";
+		cout << "-------------------------------------------------------\n";
 	}
 
 };
