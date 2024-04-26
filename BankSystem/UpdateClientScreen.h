@@ -69,7 +69,7 @@ public:
 
 		_PrintClient(Client);
 
-		cout << "\nAre you sure, You want to Update This Client [Y/N] : ";
+		cout << "\nAre You Sure, You Want To Update This Client [Y/N] : ";
 		char ConfirmationResponse = 'N';
 		cin >> ConfirmationResponse;
 

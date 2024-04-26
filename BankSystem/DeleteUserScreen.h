@@ -44,7 +44,7 @@ public:
 		BankUser User = BankUser::Find(Username);
 		_PrintUser(User);
 
-		cout << "\nAre you sure, You want to Delete This User [Y/N] : ";
+		cout << "\nAre You Sure, You Want To Delete This User [Y/N] : ";
 		char ConfirmationResponse = 'N';
 		cin >> ConfirmationResponse;
 

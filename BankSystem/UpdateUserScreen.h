@@ -128,7 +128,7 @@ public:
 
 		_PrintUser(User);
 
-		cout << "\nAre you sure, You want to Update This User [Y/N] : ";
+		cout << "\nAre You Sure, You Want To Update This User [Y/N] : ";
 		char ConfirmationResponse = 'N';
 		cin >> ConfirmationResponse;
 

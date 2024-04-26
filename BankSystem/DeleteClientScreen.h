@@ -50,7 +50,7 @@ public:
 		BankClient Client = BankClient::Find(AccountNumber);
 		_PrintClient(Client);
 
-		cout << "\nAre you sure, You want to Delete This Client [Y/N] : ";
+		cout << "\nAre You Sure, You Want To Delete This Client [Y/N] : ";
 		char ConfirmationResponse = 'N';
 		cin >> ConfirmationResponse;
 

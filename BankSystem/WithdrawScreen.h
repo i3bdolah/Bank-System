@@ -52,7 +52,7 @@ public:
 			Amount = InputValidation::ReadDouble();
 		}
 
-		cout << "\nAre you sure, You want to Withdraw This Amount [Y/N] : ";
+		cout << "\nAre You Sure, You Want To Withdraw This Amount [Y/N] : ";
 		char ConfirmationResponse = 'N';
 		cin >> ConfirmationResponse;
 

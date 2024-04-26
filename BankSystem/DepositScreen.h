@@ -46,7 +46,7 @@ public:
 		cout << "\nPlease Enter The Deposit Amount : ";
 		Amount = InputValidation::ReadDouble();
 
-		cout << "\nAre you sure, You want to Deposit This Amount [Y/N] : ";
+		cout << "\nAre You Sure, You Want To Deposit This Amount [Y/N] : ";
 		char ConfirmationResponse = 'N';
 		cin >> ConfirmationResponse;
 
