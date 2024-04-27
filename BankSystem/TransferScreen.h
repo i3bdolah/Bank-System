@@ -35,18 +35,18 @@ public:
 		_DrawScreenHeader("Transfer");
 
 		cout << "\nPlease Enter Sender Account Number : ";
-		BankClient FromClient = _ValidateClient();
-		_PrintBriefClientLine(FromClient);
+		BankClient SenderClient = _ValidateClient();
+		_PrintBriefClientLine(SenderClient);
 
 		cout << "\nPlease Enter Receiver Account Number : ";
-		BankClient ToClient = _ValidateClient();
-		while (ToClient.AccountNumber() == FromClient.AccountNumber())
+		BankClient ReceiverClient = _ValidateClient();
+		while (ReceiverClient.AccountNumber() == SenderClient.AccountNumber())
 		{
 			cout << "\nYou've Entered The Same Account!!! ";
 			cout << "\nPlease Enter Receiver Account Number : ";
-			ToClient = _ValidateClient();
+			ReceiverClient = _ValidateClient();
 		}
-		_PrintBriefClientLine(ToClient);
+		_PrintBriefClientLine(ReceiverClient);
 
 
 		double Amount = 0;
@@ -54,7 +54,7 @@ public:
 		cout << "\nPlease Enter The Amount : ";
 		Amount = InputValidation::ReadDouble();
 
-		while (Amount < 0.0 || Amount >= FromClient.AccountBalance)
+		while (Amount < 0.0 || Amount > SenderClient.AccountBalance)
 		{
 			cout << "\nPlease Re-Enter Valid Amount : ";
 			Amount = InputValidation::ReadDouble();
@@ -65,17 +65,20 @@ public:
 		cin >> ConfirmationResponse;
 
 		if (ConfirmationResponse == 'Y' || ConfirmationResponse == 'y') {
-
-			if (FromClient.Withdraw(Amount)) {
-				cout << "\nAmount Transferred Successfully.\n";
-				cout << "\nThe New Balance for " << FromClient.FullName() << " is = " << FromClient.AccountBalance << "\n";
-				ToClient.Deposit(Amount);
-			}
-			else
+			switch (SenderClient.Transfer(Amount, ReceiverClient))
 			{
+			case BankClient::eInvalidAmount:
 				cout << "\nTransfer Cancelled Due Insufficient Balance. You Will Be Re-Directed\n";
+				break;
+			case BankClient::eSameAccount:
+				cout << "\nTransfer Cancelled Due Invalid Account. You Will Be Re-Directed\n";
+				break;
+			case BankClient::eSuccess:
+				cout << "\nAmount Transferred Successfully.\n";
+				_PrintBriefClientLine(SenderClient);
+				_PrintBriefClientLine(ReceiverClient);
+				break;
 			}
-
 		}
 		else
 		{

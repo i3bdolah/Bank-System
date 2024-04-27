@@ -295,4 +295,22 @@ public:
 			return true;
 		}
 	}
+
+	enum enTranferStatus { eInvalidAmount = 1, eSameAccount = 2, eSuccess = 3 };
+
+	enTranferStatus Transfer(double Amount, BankClient& ReceiverClient) {
+		if (Amount < 0.0 || Amount > this->AccountBalance)
+		{
+			return enTranferStatus::eInvalidAmount;
+		}
+		else if (this->AccountNumber() == ReceiverClient.AccountNumber()) {
+			return enTranferStatus::eSameAccount;
+		}
+		else
+		{
+			this->Withdraw(Amount);
+			ReceiverClient.Deposit(Amount);
+			return enTranferStatus::eSuccess;
+		}
+	}
 };

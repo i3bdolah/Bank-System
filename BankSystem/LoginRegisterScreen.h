@@ -25,8 +25,8 @@ public:
 			return;
 		}
 
-		//vector <string> vLines = BankUser::GetUsersLogs();
-		vector <string> vLines = {};
+		vector <string> vLines = BankUser::GetUsersLogs();
+		//vector <string> vLines = {};
 
 		string Title = "Register Logs List";
 		string Subtitle = "(" + to_string(vLines.size()) + ") Log(s).";
