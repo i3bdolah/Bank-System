@@ -5,9 +5,11 @@
 #include <fstream>
 #include "Person.h"
 #include "String.h"
+#include "Global.h"
 using namespace std;
 
 string const ClientFile = "Clients.txt";
+string const TransferLogFile = "Transfer Log.txt";
 
 class BankClient : public Person
 {
@@ -78,7 +80,7 @@ private:
 		}
 	}
 
-	void _AddLineToFile(string Line, string DestFile = ClientFile) {
+	static void _AddLineToFile(string Line, string DestFile = ClientFile) {
 		fstream MyFile;
 		MyFile.open(DestFile, ios::out | ios::app);
 
@@ -110,6 +112,43 @@ private:
 	static BankClient _GetEmptyClientObject() {
 		return BankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
 	};
+
+	static vector <string> _LoadTransferLogs() {
+		vector <string> _vLines;
+		fstream MyFile;
+		MyFile.open(TransferLogFile, ios::in); // Reading Mode
+
+		if (MyFile.is_open())
+		{
+			string Line;
+			while (getline(MyFile, Line)) // Line By Line
+			{
+				_vLines.push_back(Line);
+			}
+			MyFile.close();
+		}
+		return _vLines;
+	}
+
+	static string _CreateTransferLogLine(double Amount, BankClient Sender, BankClient Receiver, string Separator = "#//#") {
+		string date = Date::GetSystemDate().GetDateInString();
+		string time = Date::GetSystemTime();
+
+		string Line = date + " - " + time;
+		Line += Separator + Sender.AccountNumber();
+		Line += Separator + Receiver.AccountNumber();
+		Line += Separator + to_string(Amount);
+		Line += Separator + to_string(Sender.AccountBalance);
+		Line += Separator + to_string(Receiver.AccountBalance);
+		Line += Separator + GlobalUser.Username;
+
+		return Line;
+	}
+
+	static void _CreateTransferLog(double Amount, BankClient Sender, BankClient Receiver) {
+		string Line = _CreateTransferLogLine(Amount, Sender, Receiver);
+		_AddLineToFile(Line, TransferLogFile);
+	}
 
 public:
 
@@ -310,7 +349,13 @@ public:
 		{
 			this->Withdraw(Amount);
 			ReceiverClient.Deposit(Amount);
+			// Add Log
+			_CreateTransferLog(Amount, *this, ReceiverClient);
 			return enTranferStatus::eSuccess;
 		}
+	}
+
+	static vector <string> GetTransferLogs() {
+		return _LoadTransferLogs();
 	}
 };

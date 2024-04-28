@@ -113,7 +113,7 @@ private:
 		return BankUser(enMode::EmptyMode, "", "", "", "", "", "", 0);
 	};
 
-	string _CreateLogMsg() {
+	string _CreateLogLine() {
 		string date = Date::GetSystemDate().GetDateInString();
 		string time = Date::GetSystemTime();
 
@@ -309,7 +309,7 @@ public:
 	bool RegisterLogin() {
 		if (!this->IsEmpty())
 		{
-			_AddLineToFile(_CreateLogMsg(), LoginRegisterFile);
+			_AddLineToFile(_CreateLogLine(), LoginRegisterFile);
 			return true;
 		}
 		else
