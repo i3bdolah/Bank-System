@@ -8,11 +8,11 @@ class LoginRegisterScreen : protected Screen
 {
 private:
 
-	static void _PrintRegisterLine(vector <string> Line) {
-		cout << "| " << left << setw(20) << Line[0];
-		cout << "| " << left << setw(20) << Line[1];
-		cout << "| " << left << setw(20) << Line[2];
-		cout << "| " << left << setw(20) << Line[3];
+	static void _PrintRegisterLine(BankUser::stLoginLog Line) {
+		cout << "| " << left << setw(20) << Line.DateTime;
+		cout << "| " << left << setw(20) << Line.Username;
+		cout << "| " << left << setw(20) << Line.Password;
+		cout << "| " << left << setw(20) << Line.Permissions;
 		cout << '\n';
 	}
 
@@ -25,7 +25,7 @@ public:
 			return;
 		}
 
-		vector <string> vLines = BankUser::GetUsersLogs();
+		vector <BankUser::stLoginLog> vLines = BankUser::GetUsersLogs();
 		//vector <string> vLines = {};
 
 		string Title = "Register Logs List";
@@ -48,9 +48,9 @@ public:
 		}
 		else
 		{
-			for (string& L : vLines)
+			for (BankUser::stLoginLog& L : vLines)
 			{
-				_PrintRegisterLine(String::Split(L, "#//#"));
+				_PrintRegisterLine(L);
 			}
 		}
 		cout << "\n-------------------------------------------------------";

@@ -6,6 +6,7 @@
 #include "Person.h"
 #include "Date.h"
 #include "String.h"
+#include "Utility.h"
 using namespace std;
 
 string const UserFile = "Users.txt";
@@ -26,7 +27,7 @@ private:
 		vector <string> vUserData;
 		vUserData = String::Split(Line, Separator);
 
-		return BankUser(enMode::UpdateMode, vUserData[0], vUserData[1], vUserData[2], vUserData[3], vUserData[4], vUserData[5], stoi(vUserData[6]));
+		return BankUser(enMode::UpdateMode, vUserData[0], vUserData[1], vUserData[2], vUserData[3], vUserData[4], Utility::DecryptWord(vUserData[5], 2), stoi(vUserData[6]));
 	};
 
 	static vector <BankUser> _LoadUsersObjectFromFile() {
@@ -55,7 +56,7 @@ private:
 		Line += User.Email + Separator;
 		Line += User.Phone + Separator;
 		Line += User.Username + Separator;
-		Line += User.Password + Separator;
+		Line += Utility::EncryptWord(User.Password, 2) + Separator;
 		Line += to_string(User.Permissions);
 
 		return Line;
@@ -117,15 +118,31 @@ private:
 		string date = Date::GetSystemDate().GetDateInString();
 		string time = Date::GetSystemTime();
 
-		vector <string> Line = { time, Username, Password, to_string(Permissions) };
+		vector <string> Line = { time, Username, Utility::EncryptWord(Password, 2), to_string(Permissions) };
 
 		string FormattedLine = date + " - " + String::Join(Line, "#//#");
 
 		return FormattedLine;
 	}
 
-	static vector <string> _LoadUsersLogs() {
-		vector <string> _vLines;
+
+	struct stLoginLog;
+
+	static stLoginLog _ConvertLoginLogLineToStructure(string Line) {
+		stLoginLog LoginLogLine;
+
+		vector <string> vSplitLoginLog = String::Split(Line, "#//#");
+
+		LoginLogLine.DateTime = vSplitLoginLog[0];
+		LoginLogLine.Username = vSplitLoginLog[1];
+		LoginLogLine.Password = Utility::DecryptWord(vSplitLoginLog[2], 2);
+		LoginLogLine.Permissions = stoi(vSplitLoginLog[3]);
+
+		return LoginLogLine;
+	}
+
+	static vector <stLoginLog> _LoadUsersLogs() {
+		vector <stLoginLog> _vLines;
 		fstream MyFile;
 		MyFile.open(LoginRegisterFile, ios::in); // Reading Mode
 
@@ -134,13 +151,20 @@ private:
 			string Line;
 			while (getline(MyFile, Line)) // Line By Line
 			{
-				_vLines.push_back(Line);
+				_vLines.push_back(_ConvertLoginLogLineToStructure(Line));
 			}
 			MyFile.close();
 		}
 		return _vLines;
 	}
 public:
+
+	struct stLoginLog {
+		string DateTime;
+		string Username;
+		string Password;
+		int Permissions;
+	};
 
 	enum enPermissions {
 		eListClients = 1,
@@ -318,7 +342,7 @@ public:
 		}
 	}
 
-	static vector <string> GetUsersLogs() {
+	static vector <stLoginLog> GetUsersLogs() {
 		return _LoadUsersLogs();
 	}
 };
