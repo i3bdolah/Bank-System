@@ -11,11 +11,7 @@ string const CurrencyFile = "Currencies.txt";
 class clsCurrency
 {
 private:
-	enum enMode
-	{
-		eEmptyMode = 0,
-		eUpdateMode = 1,
-	};
+	enum enMode { eEmptyMode = 0, eUpdateMode = 1, };
 	enMode _Mode;
 	string _Country;
 	string _CurrencyCode;

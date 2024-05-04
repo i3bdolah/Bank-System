@@ -10,6 +10,7 @@
 #include "TransactionsMenuScreen.h"
 #include "ManageUsersScreen.h"
 #include "LoginRegisterScreen.h"
+#include "clsCurrencyMenuScreen.h"
 #include "Global.h"
 using namespace std;
 
@@ -18,12 +19,12 @@ class MainScreen : protected Screen
 	enum enMainMenuOptions {
 		eListClient = 1, eAddNewClient = 2, eDeleteClient = 3,
 		eUpdateClient = 4, eFindClient = 5, eShowTransactionsMenue = 6,
-		eManageUsers = 7, eLoginRegister = 8, eLogout = 9
+		eManageUsers = 7, eLoginRegister = 8, eCurrency = 9, eLogout = 10
 	};
 
 	static short _ReadMainMenuOption() {
-		cout << "Choose What Do You Want To Do [1 to 9] : ";
-		short Choice = InputValidation::ReadShortBetween(1, 9, "Enter Number Between 1 to 9 : ");
+		cout << "Choose What Do You Want To Do [1 to 10] : ";
+		short Choice = InputValidation::ReadShortBetween(1, 10, "Enter Number Between 1 to 10 : ");
 		return Choice;
 	}
 
@@ -75,9 +76,10 @@ class MainScreen : protected Screen
 		LoginRegisterScreen::ShowLoginRegister();
 	}
 
-	//static void ShowEndScreen() {
-	//	cout << endl << "End Screen Will Be Here..." << endl;
-	//}
+	static void _ShowCurrencyMenuScreen() { // enum 8 
+		//cout << endl << "Show Currency Menu Screen" << endl;
+		clsCurrencyMenuScreen::ShowCurrencyMenu();
+	}
 
 	static void _Logout() {
 		GlobalUser = BankUser::Find("", "");
@@ -126,6 +128,11 @@ class MainScreen : protected Screen
 			_ShowLoginRegisterScreen();
 			_GoBackToMainMenu();
 			break;
+		case enMainMenuOptions::eCurrency:
+			system("cls");
+			_ShowCurrencyMenuScreen();
+			_GoBackToMainMenu();
+			break;
 		case enMainMenuOptions::eLogout:
 			system("cls");
 			_Logout();
@@ -140,21 +147,18 @@ public:
 		system("cls");
 		_DrawScreenHeader("Main Screen");
 
-		//cout << "===========================================\n";
-		//cout << "Main Menu\n";
-		//cout << "===========================================\n\n";
-		cout << "[1] List Clients \n";
-		cout << "[2] Add New Client\n";
-		cout << "[3] Delete Client\n";
-		cout << "[4] Update Client\n";
-		cout << "[5] Find Client\n";
-		cout << "[6] Transactions\n";
-		cout << "[7] Manage Users\n";
-		cout << "[8] Login Register\n";
-		cout << "[9] Logout\n\n";
+		cout << "[1]  List Clients \n";
+		cout << "[2]  Add New Client\n";
+		cout << "[3]  Delete Client\n";
+		cout << "[4]  Update Client\n";
+		cout << "[5]  Find Client\n";
+		cout << "[6]  Transactions\n";
+		cout << "[7]  Manage Users\n";
+		cout << "[8]  Login Register\n";
+		cout << "[9]  Currency Exchange\n";
+		cout << "[10] Logout\n\n";
 		cout << "===========================================\n";
 
-		//_PerformMainMenuOption(enMainMenuOptions::eManageUsers);
 		_PerformMainMenuOption((enMainMenuOptions)_ReadMainMenuOption());
 	}
 };
