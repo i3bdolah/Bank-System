@@ -4,6 +4,8 @@
 #include "InputValidation.h"
 #include "BankUser.h"
 #include "Screen.h"
+#include "clsListCurrencyScreen.h"
+#include "clsFindCurrencyScreen.h"
 using namespace std;
 
 class clsCurrencyMenuScreen : protected Screen
@@ -26,23 +28,23 @@ class clsCurrencyMenuScreen : protected Screen
 	}
 
 	static void _ShowListCurrency() {
-		cout << "ListCurrency" << endl;
-		// ListCurrencyScreen::ShowListCurrency
+		//cout << "ListCurrency" << endl;
+		clsListCurrencyScreen::ShowListCurrency();
 	}
 
 	static void _ShowFindCurrency() {
-		cout << "FindCurrency" << endl;
-		// FindCurrencyScreen::ShowFindCurrency
+		//cout << "FindCurrency" << endl;
+		 clsFindCurrencyScreen::ShowFindCurrency();
 	}
 
 	static void _ShowUpdateRate() {
 		cout << "UpdateRate" << endl;
-		// UpdateRateScreen::ShowUpdateRate
+		// clsUpdateRateScreen::ShowUpdateRate();
 	}
 
 	static void _ShowCurrencyCalculator() {
 		cout << "CurrencyCalculator" << endl;
-		// CurrencyCalculatorScreen::ShowCurrencyCalculator
+		// clsCurrencyCalculatorScreen::ShowCurrencyCalculator();
 	}
 
 	static void _PerformTransactionsMenuOption(enCurrencysMenuOptions Option) {
