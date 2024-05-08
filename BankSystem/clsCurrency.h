@@ -117,7 +117,7 @@ public:
 
 	void UpdateRate(float NewRate) {
 		this->_RateInUSD = NewRate;
-		_Update();
+		this->_Update();
 	}
 
 	bool IsEmpty() {
