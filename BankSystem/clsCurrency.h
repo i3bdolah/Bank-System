@@ -97,6 +97,8 @@ public:
 		this->_RateInUSD = RateInUSD;
 	}
 
+	clsCurrency() {}
+
 	string Country() {
 		return this->_Country;
 	}
