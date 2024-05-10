@@ -24,12 +24,12 @@ private:
 		return clsCurrency(enMode::eUpdateMode, vLine[0], vLine[1], vLine[2], stof(vLine[3]));
 	}
 
-	static string _ConvertCurrencyObjToLine(clsCurrency Obj) {
+	static string _ConvertCurrencyObjToLine(clsCurrency Obj, string Separator = "#//#") {
 		string Line = "";
 
-		Line += Obj.Country();
-		Line += Obj.CurrencyCode();
-		Line += Obj.CurrencyName();
+		Line += Obj.Country() + Separator;
+		Line += Obj.CurrencyCode() + Separator;
+		Line += Obj.CurrencyName() + Separator;
 		Line += to_string(Obj.RateInUSD());
 
 		return Line;
@@ -55,7 +55,7 @@ private:
 
 	static void _SaveCurrencyDataToFile(vector <clsCurrency> vCurrencies) {
 		fstream MyFile;
-		MyFile.open(CurrencyFile, ios::in);
+		MyFile.open(CurrencyFile, ios::out);
 
 		while (MyFile.is_open())
 		{
@@ -72,7 +72,7 @@ private:
 
 		for (clsCurrency& C : vCurrencies)
 		{
-			if (this->CurrencyCode() == C.CurrencyCode())
+			if (C.CurrencyCode() == this->CurrencyCode())
 			{
 				C = *this;
 				break;

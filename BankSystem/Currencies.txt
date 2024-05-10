@@ -173,7 +173,7 @@ Saint Lucia#//#XCD#//#E.C. Dollar#//#2.700000
 Samoa#//#WST#//#Samoa Tala#//#2.674000
 San Marino#//#EUR#//#Euro#//#0.938000
 Sao Tome and Principe#//#STN#//#Sao Tome Principe Dobra#//#23.299000
-Saudi Arabia#//#SAR#//#Saudi Riyal#//#3.759000
+Saudi Arabia#//#SAR#//#Saudi Riyal#//#3.750000
 Senegal#//#XOF#//#CFA Franc#//#615.401978
 Serbia#//#RSD#//#Serbian Dinar#//#110.027000
 Seychelles#//#SCR#//#Seychelles Rupee#//#13.175000
