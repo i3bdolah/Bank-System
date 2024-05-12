@@ -23,9 +23,10 @@ private:
 		cout << "___________________________\n\n";
 	}
 
-	static float _AmountInUSD(float Amount, clsCurrency FromCurrency) {
-
-	}
+	//static void _PrintResult(clsCurrency FromCurrency, clsCurrency ToCurrency) {
+	//	cout << Amount << " (" << FromCurrency.CurrencyCode() << ") = ";
+	//	cout << AmountInUsd << " (" << ToCurrency.CurrencyCode() << ")" << endl;
+	//}
 
 public:
 
@@ -63,33 +64,28 @@ public:
 
 		// AMOUNT
 		cout << "\nEnter The Amount in (" << FromCurrency.CurrencyCode() << ") : ";
-		float Amount = InputValidation::ReadFloat();
+		float FromAmount = InputValidation::ReadFloat();
 
 		// Conversion
-		float Result = 0;
 		clsCurrency USD = clsCurrency::FindByCode("USD");
-		Amount = Amount / FromCurrency.RateInUSD();
+		float UsdAmount = 0;
+		float ToAmount = 0;
 
-
-		if (FromCurrency.RateInUSD() < ToCurrency.RateInUSD())
+		if (USD.RateInUSD() > ToCurrency.RateInUSD())
 		{
-			Result = Amount * ToCurrency.RateInUSD();
-			cout << "FROM Currency is Less than TO Currency" << endl;
-			cout << Result << " (" << ToCurrency.CurrencyCode() << ")" << endl;
+			UsdAmount = FromAmount / FromCurrency.RateInUSD();
+			ToAmount = UsdAmount / ToCurrency.RateInUSD();
 		}
-		else if (FromCurrency.RateInUSD() > ToCurrency.RateInUSD())
+		else if (USD.RateInUSD() <= ToCurrency.RateInUSD())
 		{
-			Result = Amount / ToCurrency.RateInUSD();
-			cout << "FROM Currency is More than TO Currency" << endl;
-			cout << Result << " (" << ToCurrency.CurrencyCode() << ")" << endl;
-		}
-		else if (FromCurrency.RateInUSD() == ToCurrency.RateInUSD())
-		{
-			Result = Amount * USD.RateInUSD();
-			cout << "FROM Currency is Equals TO Currency" << endl;
-			cout << Result << " (" << ToCurrency.CurrencyCode() << ")" << endl;
+			UsdAmount = FromAmount * FromCurrency.RateInUSD();
+			ToAmount = UsdAmount * ToCurrency.RateInUSD();
 		}
 
+		cout << "\n\n";
+		cout << FromAmount << " (" << FromCurrency.CurrencyCode() << ") = ";
+		cout << UsdAmount << " (" << USD.CurrencyCode() << ") = ";
+		cout << ToAmount << " (" << ToCurrency.CurrencyCode() << ")" << endl;
 	}
 
 };
