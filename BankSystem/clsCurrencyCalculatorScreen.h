@@ -23,70 +23,49 @@ private:
 		cout << "___________________________\n\n";
 	}
 
-	//static void _PrintResult(clsCurrency FromCurrency, clsCurrency ToCurrency) {
-	//	cout << Amount << " (" << FromCurrency.CurrencyCode() << ") = ";
-	//	cout << AmountInUsd << " (" << ToCurrency.CurrencyCode() << ")" << endl;
-	//}
+	static clsCurrency _GetCurrency(string Msg) {
+		cout << "\n" << Msg;
+		string enteredValue = InputValidation::ReadString();
+		clsCurrency Currency = clsCurrency::FindByCode(enteredValue);
 
+		while (Currency.IsEmpty())
+		{
+			cout << "\nPlease Re-" + Msg;
+			enteredValue = InputValidation::ReadString();
+			Currency = clsCurrency::FindByCode(enteredValue);
+		}
+		_PrintShortCurrency(Currency);
+
+		return Currency;
+	}
+
+	static void _PrintCalculation(float Amount, clsCurrency FromCurrency, clsCurrency ToCurrency) {
+		float AmountInUSD = FromCurrency.ConvertToUSD(Amount);
+
+		cout << "\n\n" << Amount << " (" << FromCurrency.CurrencyCode() << ")";
+
+		if (!(FromCurrency.CurrencyCode() == "USD" || ToCurrency.CurrencyCode() == "USD"))
+		{
+			cout << " = ";
+			cout << AmountInUSD << " (USD)";
+		}
+
+		float AmountInToCurrency = FromCurrency.ConvertToOtherCurrency(Amount, ToCurrency);
+
+		cout << " = ";
+		cout << AmountInToCurrency << " (" << ToCurrency.CurrencyCode() << ")";
+	}
 public:
 
 	static void ShowCurrencyCalculator() {
 		_DrawScreenHeader("Currency Calculator");
 
+		clsCurrency FromCurrency = _GetCurrency("Enter The (FROM) Currency Code : ");
+		clsCurrency ToCurrency = _GetCurrency("Enter The (TO) Currency Code : ");
 
-		// FROM
-		cout << "\nEnter The (FROM) Currency Code : ";
-		string enteredValue = InputValidation::ReadString();
-		clsCurrency FromCurrency = clsCurrency::FindByCode(enteredValue);
+		cout << "\nEnter The Amount : ";
+		float Amount = InputValidation::ReadFloat();
 
-		while (FromCurrency.IsEmpty())
-		{
-			cout << "\nPlease Re-Enter The (FROM) Currency Code : ";
-			enteredValue = InputValidation::ReadString();
-			FromCurrency = clsCurrency::FindByCode(enteredValue);
-		}
-		_PrintShortCurrency(FromCurrency);
-
-
-		// TO
-		cout << "\nEnter The (TO) Currency Code : ";
-		enteredValue = InputValidation::ReadString();
-		clsCurrency ToCurrency = clsCurrency::FindByCode(enteredValue);
-
-		while (ToCurrency.IsEmpty())
-		{
-			cout << "\nPlease Re-Enter The (TO) Currency Code : ";
-			enteredValue = InputValidation::ReadString();
-			ToCurrency = clsCurrency::FindByCode(enteredValue);
-		}
-		_PrintShortCurrency(ToCurrency);
-
-
-		// AMOUNT
-		cout << "\nEnter The Amount in (" << FromCurrency.CurrencyCode() << ") : ";
-		float FromAmount = InputValidation::ReadFloat();
-
-		// Conversion
-		clsCurrency USD = clsCurrency::FindByCode("USD");
-		float UsdAmount = 0;
-		float ToAmount = 0;
-
-		if (USD.RateInUSD() > ToCurrency.RateInUSD())
-		{
-			UsdAmount = FromAmount / FromCurrency.RateInUSD();
-			ToAmount = UsdAmount / ToCurrency.RateInUSD();
-		}
-		else if (USD.RateInUSD() <= ToCurrency.RateInUSD())
-		{
-			UsdAmount = FromAmount * FromCurrency.RateInUSD();
-			ToAmount = UsdAmount * ToCurrency.RateInUSD();
-		}
-
-		cout << "\n\n";
-		cout << FromAmount << " (" << FromCurrency.CurrencyCode() << ") = ";
-		cout << UsdAmount << " (" << USD.CurrencyCode() << ") = ";
-		cout << ToAmount << " (" << ToCurrency.CurrencyCode() << ")" << endl;
-	}
-
+		_PrintCalculation(Amount, FromCurrency, ToCurrency);
+	};
 };
-

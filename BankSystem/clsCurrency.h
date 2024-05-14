@@ -178,5 +178,20 @@ public:
 		clsCurrency Obj = FindByCode(CurrencyCode);
 		return (!Obj.IsEmpty());
 	}
+
+	float ConvertToUSD(float Amount) {
+		return (float)Amount / this->RateInUSD();
+	}
+
+	float ConvertToOtherCurrency(float Amount, clsCurrency ToCurrency) {
+		float AmountInUSD = this->ConvertToUSD(Amount);
+
+		if (ToCurrency.CurrencyCode() == "USD")
+		{
+			return AmountInUSD;
+		}
+
+		return (float)AmountInUSD * ToCurrency.RateInUSD();
+	}
 };
 
