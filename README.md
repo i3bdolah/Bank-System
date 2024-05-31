@@ -62,6 +62,8 @@ The Currency Exchange sub-system manages currency-related operations. It include
 
 
 ## Usage
+In this section, a brief walkthrough of the application will be provided by covering the main pages and functionalities of each sub-system. This will help users understand how to navigate the application and utilize its features effectively.
+
 ![Screenshot 2024-05-31 152442](https://github.com/i3bdolah/Bank-System/assets/80276711/8ece8268-f236-40ed-ab8a-a1d95b05e32e)
 ![Screenshot 2024-05-31 152458](https://github.com/i3bdolah/Bank-System/assets/80276711/e4d15082-9880-4f10-aeac-59a8463e7c3b)
 ![Screenshot 2024-05-31 152523](https://github.com/i3bdolah/Bank-System/assets/80276711/2e0267b1-4da5-48ec-8121-5e7beb4e2854)
